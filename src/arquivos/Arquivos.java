@@ -5,10 +5,11 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 public class Arquivos {
-
+static File arquivo;  
+static File carpeta;
     
     public static void main(String[] args) {
-       
+    
    crearCarpeta("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir");
    crearArquivos("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/product1.txt");
    crearCarpeta("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/subdir");
@@ -38,7 +39,7 @@ public class Arquivos {
     }
  }
  public static void crearCarpeta(String ruta){
-      File carpeta = new File(ruta);
+      carpeta = new File(ruta);
       
        if(!carpeta.exists()){
          if (carpeta.mkdir()){
@@ -118,6 +119,24 @@ public static void soEscritura(String ruta){
         
         arquivo.setWritable(true);
         arquivo.setReadable(true);
+    }
+}
+public static void borrArquivo(String ruta){
+    arquivo  =  new File(ruta);
+    if(arquivo.exists()){
+        arquivo.delete();
+        System.out.println("Arquivo borrado con éxito");
+    }
+    System.out.println("O arquivo non se pudo borrar");
+}
+public static void borraloTodo(String ruta){
+    carpeta = new File(ruta);
+    if(carpeta.exists()==true){
+        
+       carpeta.delete();
+        System.out.println("A carpeta foi borrada");
+    }else{
+        System.out.println("non se pudo borra-la carpeta");
     }
 }
 }
