@@ -10,17 +10,18 @@ static File carpeta;
     
     public static void main(String[] args) {
     
-   crearCarpeta("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir");
-   crearArquivos("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/product1.txt");
-   crearCarpeta("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/subdir");
-   crearArquivos("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/subdir/product2.txt");   
-   
-   verRuta("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir");
-   listaArq("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir");
-   infoArq("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/product1.txt");
-   soLectura("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/product1.txt");
-   //infoArq("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/product1.txt");
-   soEscritura("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/product1.txt");
+//   crearCarpeta("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir");
+//   crearArquivos("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/product1.txt");
+//   crearCarpeta("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/subdir");
+//   crearArquivos("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/subdir/product2.txt");   
+//   
+//   verRuta("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir");
+//   listaArq("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir");
+//   infoArq("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/product1.txt");
+//   soLectura("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/product1.txt");
+//   //infoArq("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/product1.txt");
+//   soEscritura("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir/product1.txt");
+     borraloTodo("/home/local/DANIELCASTELAO/mblancosoto/NetBeansProjects/arquivos/arquivosdir");
     }
    
     
@@ -74,8 +75,13 @@ public static void listaArq(String ruta){
     
     if(arquivo.exists()==true){
         String archivos [] = arquivo.list();
+       
         for(int i=0;i<archivos.length;i++){
+         if(arquivo.isDirectory()){  
         System.out.println(""+archivos[i]);
+       
+         }
+       
         }
     }else{
         System.out.println("O arquivo non existe ou está valeiro");
@@ -131,12 +137,19 @@ public static void borrArquivo(String ruta){
 }
 public static void borraloTodo(String ruta){
     carpeta = new File(ruta);
-    if(carpeta.exists()==true){
-        
-       carpeta.delete();
-        System.out.println("A carpeta foi borrada");
-    }else{
-        System.out.println("non se pudo borra-la carpeta");
+    
+    if(carpeta.exists()){
+        File arquivos [] = carpeta.listFiles();
+     for(int i=0;i<arquivos.length;i++){
+        arquivos[i].delete();
+        if(arquivos[i]!=null){
+            borraloTodo(arquivos[i].getPath());
+        }
+     }
+        System.out.println("As carpetas foron borradas");
     }
+        
+    carpeta.delete();
+    
 }
 }
